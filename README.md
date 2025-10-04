@@ -1,333 +1,162 @@
-# 🌌 The Astronomist
+# 🧠 The Astronomists
 
-**Agent IA NASA pour la chasse aux exoplanètes**
+> *"The most dangerous phrase in the language is: 'We've always done it this way.'"* - Grace Hopper, PhD
 
-Une application web complète qui combine des agents IA de pointe avec les données d'exoplanètes de la NASA pour fournir une analyse intelligente et une exploration des systèmes exoplanétaires. The Astronomist dispose d'une interface spatiale époustouflante avec visualisation de données en temps réel et capacités de recherche alimentées par l'IA.
+A full-stack web application that unites machine learning, agentic reasoning, and immersive visualization for exoplanet discovery and analysis. Built for the NASA Space Apps Challenge, this project honors Grace Hopper's legacy of curiosity, courage, and the drive to go beyond what has always been done.
 
-## 🌟 Vue d'ensemble
+## 🎥 Demo
 
-The Astronomist est une application full-stack qui réunit :
+**Full walkthrough** (light curves visualization and analysis): [https://www.youtube.com/watch?v=imL7TtxZxIg](https://www.youtube.com/watch?v=imL7TtxZxIg)
 
-- **Frontend** : Next.js 15 avec TypeScript et Tailwind CSS
-- **Backend** : FastAPI avec agents IA spécialisés
-- **Sources de données** : Archive d'Exoplanètes NASA, arXiv, et Perplexity AI
-- **Visualisation** : Visualiseur de planètes 3D interactif et animations de champ d'étoiles
+## 🌟 Features
 
-## 🚀 Fonctionnalités
+The Astronomists delivers an immersive interface designed to highlight both the scientific rigor of the ML pipeline and the accessibility of a modern user experience.
 
-### 🎨 Expérience utilisateur immersive
-- **Champ d'étoiles Hyperspace** : Arrière-plan animé avec effets de distorsion
-- **Visualisation de planètes 3D** : Modèles d'exoplanètes interactifs avec rendu réaliste
-- **Design responsive** : Optimisé pour ordinateurs de bureau et appareils mobiles
-- **Thème spatial** : Interface sombre futuriste avec effets lumineux et animations fluides
+### 🏠 Home Page
+An immersive interface with a futuristic space-inspired design and starfield animation. This opening screen places the user directly "in space," setting the tone for exploration and discovery.
 
-### 🤖 Analyse alimentée par l'IA
-- **Agent Johannes Kepler** : Analyse complète d'exoplanètes utilisant l'Archive d'Exoplanètes NASA via astroquery, recherche de littérature arXiv, et synthèse astrophysique spécialisée
-- **Agent Grace Hopper** : Recherche avancée d'exoplanètes combinant littérature scientifique, intelligence web et résultats de classification d'un modèle de machine learning avec modèles de données structurés et capacités d'analyse complètes
-- **Recherche intégrée** : Les deux agents utilisent Perplexity AI pour recherche web et synthèse de pointe
+### 🛸 Exploration Path
+The central hub for selecting AI agents to investigate exoplanets. It offers three paths of analysis:
 
-### 📊 Intégration de données
-- **Archive d'Exoplanètes NASA** : Accès direct via astroquery aux paramètres officiels d'exoplanètes, caractéristiques orbitales, et propriétés stellaires
-- **NASA Eyes** : Intégration des données et visualisations NASA Eyes pour l'exploration planétaire, simulations orbitales et modélisation 3D des systèmes exoplanétaires
-- **Littérature scientifique** : Intégration d'articles de recherche arXiv avec extraction automatisée d'abstracts et gestion de citations  
-- **Intelligence web** : Prophecy AI pour synthèse de recherche complète avec focus astrophysique spécialisé
-- **Modèles de données structurés** : Modèle ExoplanetCharacteristics Pydantic pour gestion robuste des paramètres
-- **Upload de fichiers** : Support pour images JWST et analyse de données de transit
+1. **Johannes Kepler** - for confirmed exoplanets
+2. **Grace Hopper** - for advanced analysis of new candidates  
+3. **Mission Dashboard** - for monitoring NASA missions on exoplanets
 
-### 🔍 Capacités de recherche
-- **Recherche d'exoplanètes** : Requêtes à la base de données NASA pour planètes spécifiques
-- **Analyse de système** : Comparaison et analyse de systèmes multi-planètes
-- **Évaluation d'habitabilité** : Évaluation alimentée par l'IA du potentiel de vie
-- **Suivi de missions** : Statut des missions NASA en temps réel et découvertes
+## 🔭 Exploration Paths
 
-## 🏗️ Architecture
+### 1st Path - New Exoplanets Data
 
-### Frontend (`the-astronomist/`)
-```
-src/app/
-├── page.tsx                          # Page d'accueil avec champ d'étoiles
-├── exploration-path/                 # Interface de recherche de planètes
-├── grace-hopper-report/              # Résultats d'analyse agent Grace Hopper
-├── grace-hopper-input/               # Saisie de données d'exoplanètes personnalisées
-├── kepler-input/                     # Interface agent Johannes Kepler
-├── kepler-results/                   # Résultats d'analyse agent Kepler
-├── kepler-system-viewer/             # Visualiseur de systèmes multi-planètes
-├── kepler-bibliographic-research/    # Interface de recherche bibliographique
-├── mission-dashboard/                # Vue d'ensemble des missions NASA
-├── mission-viewer/                   # Visualiseur détaillé des missions
-├── components/                       # Composants UI réutilisables
-├── services/                         # Services d'intégration API
-└── api/                              # Routes API Next.js
-```
+#### Grace Hopper Agent - Data Page
+An interactive analysis interface for candidate exoplanets. Users can manually enter orbital and stellar parameters, run ML-powered predictions, or dive deeper with integrated Jupyter notebooks preloaded for training and data exploration.
 
-### Backend (`ai_agents/`)
-```
-ai_agents/
-├── api.py                           # Application FastAPI avec endpoints streaming
-├── start_api.py                     # Script de démarrage serveur
-├── astronomist_agents/               # Dossier des agents IA spécialisés
-│   ├── johannes_kepler_agent.py     # Agent Johannes Kepler avec intégration astroquery
-│   └── grace_hopper_agent.py         # Agent Grace Hopper avec modèle ExoplanetCharacteristics
-├── classifiers/
-│   ├── exoplanet_classifier.py     # Classificateur ML pour exoplanètes
-│   └── models/
-│       └── exoplanet_grace_hopper.pkl  # Modèle ML sauvegardé
-├── requirements.txt                 # Dépendances Python incluant astroquery
-└── README.md                        # Documentation détaillée des agents
-```
+**Two modes of input:**
+- **Tabular data input** – Users provide orbital and stellar parameters manually (or load an example dataset). The data is sent to a backend ML model exposed through an API, returning predictions (possible candidate, candidate, or false positive).
+- **Transit data input** – Users upload light-curve data for analysis by AstronetCNN, a deep learning model trained on KOI data. The system automatically returns classification results.
 
-## 🛠️ Stack Technologique
+The page includes an integrated notebook viewer, allowing users to load the model's predictions, inspect the workflow, and run custom analyses within an interactive environment.
 
-### Frontend
-- **Next.js 15** : Framework React avec App Router
-- **TypeScript** : Développement type-safe
-- **Tailwind CSS** : Styling utilitaire-first
-- **React Markdown** : Rendu de texte enrichi
+#### Grace Hopper Agent Report
+The Grace Hopper agent receives raw input (tabular or transit data) and synthesizes this information with its knowledge and the ML model's predictions to provide an informed, contextualized opinion on whether the signal represents an exoplanet.
+
+### 2nd Path - Analyzing Existing Exoplanets Data
+
+#### Kepler Input
+A dedicated search interface for confirmed exoplanets, providing quick access to famous planets such as Kepler-22b, TRAPPIST-1e, and Gliese 581g. Features an intelligent search engine alongside shortcut buttons for well-known discoveries.
+
+#### Kepler Planet Results
+An exoplanet analysis dashboard that combines NASA Eyes visualizations with detailed scientific data. The screen is split: an interactive 3D visualization on the left, and an orbital and stellar characteristics panel on the right, with navigation links toward system-level analysis.
+
+#### Kepler System Viewer
+A stellar system viewer designed with dual NASA Eyes for both a global system view and a focused star-centric perspective. The immersive interface lets users examine the complete system while zooming into stellar magnifications, with action buttons to connect directly to the Kepler agent and the bibliographic search module.
+
+#### Kepler Bibliographic Research
+A bibliographic AI agent dedicated to analyzing the scientific literature through databases such as arXiv and peer-reviewed astronomical publications. This specialized interface searches for methodologies, highlights recent discoveries, and generates intelligent syntheses of knowledge related to the specific exoplanet and its solar system.
+
+#### Kepler Agent Report
+The intelligence center for the Johannes Kepler AI agent, delivering an automated scientific report and an interactive chat. This sophisticated interface generates detailed analyses powered by AI, integrates NASA Eyes data, and supports real-time dialogue for in-depth scientific exploration.
+
+### 3rd Path - Discovering NASA's Exoplanets Missions
+
+#### Mission Dashboard
+A mission control center for NASA's space observatories, featuring a complete catalog of both active and retired missions. The dashboard showcases missions such as TESS, JWST, Kepler, Spitzer, and Hubble, with detailed cards describing their orbits, instruments, and key discoveries.
+
+#### Mission Viewer
+An integrated NASA Eyes immersive viewer for real-time exploration of NASA missions. This full-screen interface displays spacecraft and telescopes in action, offering interactive controls, mission data overlays, and smooth navigation for a complete tour of the instruments shaping our view of the universe.
+
+## 🏗️ Project Architecture
+
+The Astronomist is a full-stack web application developed for the NASA Space Apps Challenge, addressing the task of automatic exoplanet identification using artificial intelligence and machine learning.
 
 ### Backend
-- **FastAPI** : Framework web Python moderne avec support streaming
-- **OpenAI Agents** : Framework d'agents IA avec appel de fonctions
-- **Pydantic** : Validation et sérialisation de données (modèle ExoplanetCharacteristics)
-- **Astroquery** : Accès direct à l'Archive d'Exoplanètes NASA
-- **Uvicorn** : Serveur ASGI
-- **Requests/HTTPX** : Bibliothèques client HTTP pour intégration API
+Built with **FastAPI**, a modern Python web framework enabling efficient integration with specialized AI agents. The backend handles user requests, authentication, and the core exoplanet data analysis pipeline, orchestrated through two agents: Johannes Kepler and Grace Hopper.
 
-### IA & Données
-- **OpenAI GPT-5-mini-2025-08-07** : Modèle de langage avancé pour analyse scientifique
-- **Perplexity AI** : Recherche web spécialisée avec focus astrophysique
-- **Archive d'Exoplanètes NASA** : Données d'exoplanètes officielles via astroquery
-- **API arXiv** : Accès à la littérature scientifique avec extraction automatisée d'abstracts
+### Frontend
+Developed as a responsive web application using **Next.js 15**, **TypeScript**, and **Tailwind CSS**, optimized for desktop, tablet, and mobile devices. The interface features a futuristic spatial theme with hyperspace starfield animations and interactive 3D exoplanet visualizations, directly using NASA Eyes embedded on the pages.
 
-### 🔬 Classificateur Machine Learning
-- **Modèle** : HistGradientBoostingClassifier avec pipeline de preprocesssing avancé
-- **Architecture** : Transformer quantile, imputation de valeurs manquantes, feature engineering avec transformations logarithmiques et ratios
-- **Performance** : 
-  - F1-macro Score: 0.831 ± 0.002
-  - Balanced Accuracy: 0.834 ± 0.003
-- **Validation** : 5-Fold Stratified Group Cross-Validation avec validation Leave-One-Mission-Out pour robustesse entre missions Kepler/K2/TESS
-- **Données d'entraînement** : Archive NASA Exoplanet (KOI + K2 + TOI missions)
+### Data Integration
+Connected to the **NASA Exoplanet Archive** via astroquery to retrieve and process satellite datasets from the Kepler, K2, and TESS missions. The system also integrates **arXiv** for scientific literature and **Perplexity AI** for intelligent synthesis of web-based knowledge.
 
-## 🚀 Démarrage Rapide
+### Machine Learning Models
+- **HistGradientBoostingClassifier** with an advanced preprocessing pipeline, trained on NASA's open datasets. The model achieves an F1 score of **83.1%** in three-class classification (confirmed exoplanets, planetary candidates, false positives), validated through cross-mission testing.
+- **AstronetCNN** deep learning algorithm trained on KOI data, used to classify light curves, achieving an F1-score of **65%**.
 
-### Prérequis
-- Node.js 18+ et npm
+### Specialized AI Agents
+Two distinct agents powered by the **OpenAI Agents framework**:
+- **Johannes Kepler** - for in-depth analysis of NASA data and bibliographic research
+- **Grace Hopper** - for advanced exploration combining literature review, web intelligence, and support for JWST image uploads and transit data
+
+## 🚀 Getting Started
+
+### Prerequisites
 - Python 3.8+
-- Clé API OpenAI
-- Clé API Perplexity
+- Node.js 18+
+- npm or yarn
 
 ### Installation
 
-1. **Cloner le repository**
+1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/your-username/astronomist.git
    cd astronomist
    ```
 
-2. **Configurer le backend**
+2. **Backend Setup**
    ```bash
    cd ai_agents
    pip install -r requirements.txt
-   
-   # Créer le fichier d'environnement
    cp env.example .env
-   # Éditer .encode avec vos clés API
+   # Configure your environment variables
+   python start_api.py
    ```
 
-3. **Configurer le frontend**
+3. **Frontend Setup**
    ```bash
    cd the-astronomist
    npm install
-   ```
-
-### Lancement de l'application
-
-1. **Démarrer l'API des agents IA**
-   ```bash
-   cd ai_agents
-   python start_api.py
-   ```
-   API disponible à : http://localhost:8000
-
-2. **Démarrer le frontend**
-   ```bash
-   cd the-astronomist
    npm run dev
    ```
-   Application disponible à : http://localhost:3000
 
-## 📱 Pages de l'Application
+4. **Access the application**
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:8000
 
-### 🏠 Page d'Accueil
-- Animation de champ d'étoiles Hyperspace
-- Visualiseur de planètes interactif
-- Accès rapide aux fonctionnalités principales
-- Cartes de vue d'ensemble des missions
+## 📊 Performance Metrics
 
-### 🔍 Recherche d'Exoplanètes
-- Recherche dans l'Archive d'Exoplanètes NASA
-- Validation de données en temps réel
-- Affichage des paramètres de planètes
-- Intégration d'analyse directe
+- **HistGradientBoostingClassifier**: F1-score of 83.1%
+- **AstronetCNN**: F1-score of 65%
+- Cross-mission validation completed
+- Real-time analysis capabilities
 
-### 🧠 Rapport Astronome
-- Analyse IA Johannes Kepler avec intégration astroquery
-- Consultation directe des paramètres de l'Archive d'Exoplanètes NASA
-- Recherche de littérature astrophysique spécialisée via Perplexity AI
-- Interface de chat interactive avec transparence d'utilisation des outils
-- Visualisation 3D de planètes avec données réelles
+## 🔮 Next Steps
 
-### 🚀 Saisie Grace Hopper
-- Saisie de données d'exoplanètes personnalisées avec modèle ExoplanetCharacteristics
-- Support d'upload de fichiers (images JWST, données de transit)
-- Validation et traitement structuré des paramètres
-- Synthèse de recherche complète combinant littérature et intelligence web
+This project represents a first draft, designed to make the discovery and study of exoplanets more accessible. The next phase involves:
 
-### 📚 Recherche Bibliographique
-- Intégrée dans l'agent Johannes Kepler pour une analyse sans faille
-- Recherche de littérature scientifique arXiv avec extraction automatisée d'abstracts
-- Identification et synthèse de tendances de recherche
-- Études méthodologiques avec focus publié-évalué
-- Suivi de publications avec DOIs et ADS bibcodes
+- **Collaborating with exoplanet scientists** to curate a comprehensive set of high-quality scientific resources
+- **Fine-tuning or distilling open-source models** (e.g., using a LoRA approach) to improve accuracy and reliability
+- **Exploring integration of Granite 4 from IBM** as a foundation model to enhance the precision and contextual reasoning of our agents
+- **Integrating multiple ML models** into the application, allowing users to select which model to apply when making predictions
+- **Supporting benchmarking and reproducibility** while fostering collaborative experimentation
 
-### 🛰️ Tableau de Bord des Missions
-- Missions NASA actives (TESS, JWST)
-- Statut des missions et découvertes
-- Données historiques des missions
-- Mises à jour en temps réel
+*Next: James Webb integration (if we're lucky to win! 😄)*
 
-### 🌌 Visualiseur de Système
-- Visualisation de systèmes multi-planètes
-- Affichage de mécaniques orbitales
-- Analyse comparative
-- Modèles 3D interactifs
+## 🤝 Contributing
 
-## 🔧 Endpoints API
+We welcome contributions from the scientific community! Please feel free to:
+- Report bugs and issues
+- Suggest new features
+- Contribute to the ML models
+- Improve the documentation
 
-### Agent Johannes Kepler
-- `POST /kepler/analyze` - Analyse complète d'exoplanètes utilisant astroquery et recherche de littérature
-- `GET /kepler/health` - Contrôle de santé
+## 📄 License
 
-### Recherche Bibliographique (via Agent Kepler)
-- `POST /bibliographic/analyze` - Redirige vers l'agent Kepler pour une analyse intégrée
+This project is developed for the NASA Space Apps Challenge and is open source.
 
-### Agent Grace Hopper
-- `POST /grace-hopper/analyze` - Recherche avancée d'exoplanètes avec modèle ExoplanetCharacteristics
-- `POST /grace-hopper/analyze-with-files` - Analyse avec images JWST et données de transit
-- `GET /grace-hopper/health` - Contrôle de santé
+## 🙏 Acknowledgments
 
-### Général
-- `GET /` - Statut API
-- `GET /docs` - Documentation API interactive
-
-## 🎯 Cas d'Utilisation
-
-### Recherche Académique
-- **Reviews de Littérature** : Analyse bibliographique complète
-- **Exploration de Données** : Recherche dans l'Archive d'Exoplanètes NASA
-- **Analyse de Tendances** : Identification de patterns de recherche
-- **Études Comparatives** : Analyse de systèmes multi-planètes
-
-### Éducation
-- **Apprentissage Interactif** : Science des exoplanètes pratique
-- **Projets Étudiants** : Devoirs de recherche avec données réelles
-- **Développement Curriculaire** : Contenu d'éducation scientifique
-- **Vulgarisation Publique** : Présentations engageantes
-
-### Découverte Scientifique
-- **Exploration de Systèmes** : Analyse de nouveaux systèmes d'exoplanètes
-- **Évaluation d'Habitabilité** : Évaluation du potentiel de vie
-- **Planification Observationnelle** : Sélection de cibles pour missions
-- **Développement de Méthodes** : Nouvelles techniques de caractérisation
-
-## 🔍 Fonctionnalités Clés en Détail
-
-### Capacités de l'Agent IA
-- **Analyse en Temps Réel** : Streaming en direct des réponses IA avec suivi d'utilisation des outils
-- **Intégration Astroquery** : Accès direct à l'Archive d'Exoplanètes NASA via Python
-- **Recherche Spécialisée** : Synthèse Perplexity AI focalisée astrophysique
-- **Modèles de Données Structurés** : Validation Pydantic ExoplanetCharacteristics
-- **Intégration Multi-Sources** : NASA, arXiv, et recherche web complète
-- **Traitement de Fichiers** : Support d'analyse d'images JWST et données de transit
-- **Gestion d'Erreurs** : Mécanismes robustes de gestion et récupération d'erreurs
-
-### Visualisation de Données
-- **Modèles de Planètes 3D** : Rendu réaliste d'exoplanètes
-- **Mécaniques Orbitales** : Visualisation de dynamiques de système
-- **Tableaux de Paramètres** : Présentation de données structurées
-- **Graphiques Interactifs** : Exploration dynamique de données
-- **Suivi de Missions** : Statut des missions NASA en temps réel
-
-### Expérience Utilisateur
-- **Design Responsif** : Optimisation mobile et desktop
-- **Animations Fluides** : Champ d'étoiles 60fps et transitions
-- **Navigation Intuitive** : Architecture d'information claire
-- **Accessibilité** : Support lecteur d'écran et clavier
-- **Performance** : Chargement et rendu optimisés
-
-## 🚨 Résolution de Problèmes
-
-### Problèmes Courants
-1. **Connexion API** : S'assurer que le backend fonctionne sur le port 8000
-2. **Erreurs CORS** : Vérifier la configuration du serveur API
-3. **Upload de Fichiers** : Vérifier les limites de taille et format de fichiers
-4. **Performance** : Surveiller les temps de réponse API
-5. **Environnement** : Vérifier les clés API dans le fichier `.env` file
-
-### Messages d'Erreur
-- `Connection refused` : Backend API pas lancé
-- `CORS error` : Problème de communication frontend-backend
-- `API key error` : Clés API manquantes ou invalides
-- `File upload failed` : Vérifier le format et la taille du fichier
-
-## 📚 Documentation
-
-- **Documentation API** : http://localhost:8000/docs (Interface Swagger UI interactive)
-- **README Agent** : `ai_agents/README.md` (Documentation complète des agents)
-- **Composants Frontend** : Documentation inline dans les fichiers source
-- **Modèles de Données** : Interfaces TypeScript et modèles Pydantic (ExoplanetCharacteristics)
-- **Documentation Outils** : Descriptions détaillées de fonctions pour astroquery et outils de recherche
-
-## 🤝 Contribution
-
-1. Fork le repository
-2. Créer une branche feature
-3. Apporter les modifications
-4. Tests approfondis
-5. Soumettre une pull request
-
-## 📄 Licence
-
-Ce projet est sous licence MIT - voir le fichier LICENSE pour les détails.
-
-## 🙏 Remerciements
-
-- **Archive d'Exoplanètes NASA** pour avoir fourni les données d'exoplanètes officielles
-- **arXiv** pour l'accès libre aux prépublications scientifiques
-- **Perplexity AI** pour les capacités de recherche complètes
-- **OpenAI** pour le framework d'agents et le modèle de langage
-- **FastAPI** pour le framework web moderne
-- **Next.js** pour le framework React
-- **Communauté Astronomique** pour la recherche continue et les découvertes
-
-## 📞 Support
-
-Pour les problèmes et questions :
-- Consulter la section de résolution de problèmes
-- Consulter la documentation API à http://localhost:8000/docs
-- Vérifier la configuration de l'environnement
-- Tester d'abord avec des requêtes simples
+- **NASA** for providing the datasets and APIs
+- **Grace Hopper** for inspiring us to push beyond conventional boundaries
+- **The exoplanet research community** for their invaluable contributions to our understanding of the universe
 
 ---
 
-**Note** : Cette application est conçue pour la recherche scientifique et les objectifs éducatifs. Toujours vérifier les informations critiques via des sources officielles. Les agents IA fournissent de l'analyse et de la synthèse mais doivent être utilisés comme outils de support, pas pour remplacer le jugement scientifique et l'évaluation par les pairs.
-
-## 🌟 Premier Pas
-
-1. **Explorer le Cosmos** : Commencer par la page d'accueil pour découvrir le champ d'étoiles
-2. **Rechercher des Exoplanètes** : Utiliser la fonction de recherche pour trouver des planètes spécifiques
-3. **Analyse IA** : Laisser l'agent Johannes Kepler analyser vos découvertes
-4. **Recherche Personnalisée** : Utiliser Grace Hopper pour l'analyse d'exoplanètes personnalisées
-5. **Review de Littérature** : Explorer les papiers scientifiques avec l'agent bibliographique
-6. **Suivi de Missions** : Surveiller les missions NASA et découvertes
-
-Bienvenue dans The Astronomist - où l'IA rencontre le cosmos ! 🚀✨
+*Built with ❤️ for the NASA Space Apps Challenge*
