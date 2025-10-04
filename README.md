@@ -1,7 +1,7 @@
 # 🧠 The Astronomists
 
 <div align="center">
-  <img src="./public/the_astronomists.png" alt="The Astronomists" width="600" />
+  <img src="./public/the_astronomists.png" alt="The Astronomists" width="300" />
 </div>
 
 > *"The most dangerous phrase in the language is: 'We've always done it this way.'"* - Grace Hopper, PhD
