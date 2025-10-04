@@ -23,8 +23,10 @@ You can watch the full walkthrough on YouTube:
 | **Grace Hopper Report** | ![Grace Hopper Report](./public/hopper_repport.png) | AI-powered synthesis and contextualized exoplanet analysis |
 | **Kepler Input** | ![Kepler Input](./public/kepler_1.png) | Search interface for confirmed exoplanets with intelligent search engine |
 | **Kepler Planet Results** | ![Kepler Planet Results](./public/kepler_2.png) | Exoplanet analysis dashboard with NASA Eyes visualizations |
-| **Kepler System Viewer** | ![Kepler System Viewer](./public/kepler_4.png) | Stellar system viewer with dual NASA Eyes perspectives |
+| **Kepler Planet Results (View 2)** | ![Kepler Planet Results View 2](./public/kepler_2-bis.png) | Alternative view of exoplanet analysis dashboard |
+| **Kepler System Viewer** | ![Kepler System Viewer](./public/kepler_3-bis.png) | Stellar system viewer with dual NASA Eyes perspectives |
 | **Kepler Bibliographic Research** | ![Kepler Bibliographic Research](./public/kepler_biblio-bis.png) | AI agent for scientific literature analysis via arXiv and publications |
+| **Kepler Agent Report** | ![Kepler Agent Report](./public/kepler_4.png) | Automated scientific report and interactive chat from Johannes Kepler AI agent |
 | **Mission Dashboard** | ![Mission Dashboard](./public/mission_dashboard.png) | Mission control center for NASA's space observatories |
 | **Mission JWST** | ![Mission JWST](./public/mission_jwst.png) | James Webb Space Telescope mission visualization |
 
