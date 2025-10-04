@@ -33,60 +33,38 @@ You can watch the full walkthrough on YouTube:
 | **Mission JWST** | ![Mission JWST](./public/mission_jwst.png) | James Webb Space Telescope mission visualization |
 
 
-## 🌟 Features
+## 🌟 Key Features
 
-The Astronomists delivers an immersive interface designed to highlight both the scientific rigor of the ML pipeline and the accessibility of a modern user experience.
+### 🤖 **Dual AI Agents**
+- **Grace Hopper Agent** - Advanced analysis of new exoplanet candidates with ML predictions
+- **Johannes Kepler Agent** - Deep exploration of confirmed exoplanets with scientific literature research
 
-### 🏠 Home Page
-An immersive interface with a futuristic space-inspired design and starfield animation. This opening screen places the user directly "in space," setting the tone for exploration and discovery.
+### 🔬 **Machine Learning Pipeline**
+- **HistGradientBoostingClassifier** - 83.1% F1-score for exoplanet classification
+- **AstronetCNN** - Deep learning model for light curve analysis (65% F1-score)
+- **Real-time predictions** - Instant analysis of orbital and stellar parameters
 
-### 🛸 Exploration Path
-The central hub for selecting AI agents to investigate exoplanets. It offers three paths of analysis:
+### 🛸 **Three Exploration Paths**
 
-1. **Johannes Kepler** - for confirmed exoplanets
-2. **Grace Hopper** - for advanced analysis of new candidates  
-3. **Mission Dashboard** - for monitoring NASA missions on exoplanets
+#### **Path 1: New Exoplanet Discovery**
+- 📊 **Tabular Data Analysis** - Upload orbital parameters for ML classification
+- 📈 **Light Curve Analysis** - Upload transit data for AstronetCNN processing
+- 📓 **Integrated Jupyter Notebooks** - Interactive data exploration and model training
 
-## 🔭 Exploration Paths
+#### **Path 2: Confirmed Exoplanet Research**
+- 🔍 **Intelligent Search** - Quick access to famous exoplanets (Kepler-22b, TRAPPIST-1e, etc.)
+- 🌌 **3D Visualizations** - NASA Eyes integration for immersive system exploration
+- 📚 **Bibliographic Research** - AI-powered literature analysis via arXiv and publications
+- 💬 **Interactive Reports** - Automated scientific analysis with real-time chat
 
-### 1st Path - New Exoplanets Data
+#### **Path 3: NASA Mission Exploration**
+- 🚀 **Mission Dashboard** - Complete catalog of space observatories (TESS, JWST, Kepler, etc.)
+- 🛰️ **Real-time Mission Tracking** - Live spacecraft and telescope visualization
 
-#### Grace Hopper Agent - Data Page
-An interactive analysis interface for candidate exoplanets. Users can manually enter orbital and stellar parameters, run ML-powered predictions, or dive deeper with integrated Jupyter notebooks preloaded for training and data exploration.
-
-**Two modes of input:**
-- **Tabular data input** – Users provide orbital and stellar parameters manually (or load an example dataset). The data is sent to a backend ML model exposed through an API, returning predictions (possible candidate, candidate, or false positive).
-- **Transit data input** – Users upload light-curve data for analysis by AstronetCNN, a deep learning model trained on KOI data. The system automatically returns classification results.
-
-The page includes an integrated notebook viewer, allowing users to load the model's predictions, inspect the workflow, and run custom analyses within an interactive environment.
-
-#### Grace Hopper Agent Report
-The Grace Hopper agent receives raw input (tabular or transit data) and synthesizes this information with its knowledge and the ML model's predictions to provide an informed, contextualized opinion on whether the signal represents an exoplanet.
-
-### 2nd Path - Analyzing Existing Exoplanets Data
-
-#### Kepler Input
-A dedicated search interface for confirmed exoplanets, providing quick access to famous planets such as Kepler-22b, TRAPPIST-1e, and Gliese 581g. Features an intelligent search engine alongside shortcut buttons for well-known discoveries.
-
-#### Kepler Planet Results
-An exoplanet analysis dashboard that combines NASA Eyes visualizations with detailed scientific data. The screen is split: an interactive 3D visualization on the left, and an orbital and stellar characteristics panel on the right, with navigation links toward system-level analysis.
-
-#### Kepler System Viewer
-A stellar system viewer designed with dual NASA Eyes for both a global system view and a focused star-centric perspective. The immersive interface lets users examine the complete system while zooming into stellar magnifications, with action buttons to connect directly to the Kepler agent and the bibliographic search module.
-
-#### Kepler Bibliographic Research
-A bibliographic AI agent dedicated to analyzing the scientific literature through databases such as arXiv and peer-reviewed astronomical publications. This specialized interface searches for methodologies, highlights recent discoveries, and generates intelligent syntheses of knowledge related to the specific exoplanet and its solar system.
-
-#### Kepler Agent Report
-The intelligence center for the Johannes Kepler AI agent, delivering an automated scientific report and an interactive chat. This sophisticated interface generates detailed analyses powered by AI, integrates NASA Eyes data, and supports real-time dialogue for in-depth scientific exploration.
-
-### 3rd Path - Discovering NASA's Exoplanets Missions
-
-#### Mission Dashboard
-A mission control center for NASA's space observatories, featuring a complete catalog of both active and retired missions. The dashboard showcases missions such as TESS, JWST, Kepler, Spitzer, and Hubble, with detailed cards describing their orbits, instruments, and key discoveries.
-
-#### Mission Viewer
-An integrated NASA Eyes immersive viewer for real-time exploration of NASA missions. This full-screen interface displays spacecraft and telescopes in action, offering interactive controls, mission data overlays, and smooth navigation for a complete tour of the instruments shaping our view of the universe.
+### 🎨 **Immersive User Experience**
+- ✨ **Space-themed Interface** - Futuristic design with starfield animations
+- 📱 **Responsive Design** - Optimized for desktop, tablet, and mobile
+- 🌐 **NASA Eyes Integration** - Direct embedding of official NASA visualizations
 
 ## 🏗️ Project Architecture
 
@@ -184,4 +162,4 @@ This project is developed for the NASA Space Apps Challenge and is open source.
 
 ---
 
-*Built with ❤️ for the NASA Space Apps Challenge*
+*Built with ❤️ by Paul Barbaste and Xavier Vasques for the NASA Space Apps Challenge - Hunting for exoplanets*
