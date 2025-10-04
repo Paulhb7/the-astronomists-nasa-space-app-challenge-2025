@@ -1,14 +1,14 @@
 # 🧠 The Astronomists
 
+<div align="center">
+  <img src="./public/the_astronomists.png" alt="The Astronomists" width="600" />
+</div>
+
 > *"The most dangerous phrase in the language is: 'We've always done it this way.'"* - Grace Hopper, PhD
 
 🌍 NASA missions such as Kepler, K2, and TESS have produced massive datasets of stellar observations, yet exoplanet identification remains slow and mostly manual. The main challenge lies in the inconsistencies between missions — varying data formats, feature sets, and noise levels make it difficult to train a single model that performs well across all sources. 
 
 🌌 The Astronomists introduces an agentic AI framework where intelligent agents orchestrate traditional machine learning models, scientific archives, and research literature to accelerate discovery. Two agents — Johannes Kepler and Grace Hopper — collaborate to harmonize data and evaluate classifiers, and cross-check findings with the NASA Exoplanet Archive and open science studies. The system is deployed as an interactive web platform that combines generative AI, traditional ML and 3D visualizations, using Nasa Eyes, allowing beginners to explore, understand, and visualize exoplanet data.
-
-<div align="center">
-  <img src="./public/the_astronomists.png" alt="The Astronomists" width="600" />
-</div>
 
 🐍 Data scientists and ML engineers can upload data, run analyses, and explore planetary systems using integrated Jupyter notebooks — either their own or the ones provided within the platform. We offer several pretrained models, but users can also bring their own, fine-tune them, and evaluate performance through accuracy scores and detailed metrics.
 
