@@ -4,9 +4,29 @@
 
 A full-stack web application that unites machine learning, agentic reasoning, and immersive visualization for exoplanet discovery and analysis. Built for the NASA Space Apps Challenge, this project honors Grace Hopper's legacy of curiosity, courage, and the drive to go beyond what has always been done.
 
-## 🎥 Demo
+## 🎥 Live Demo
 
-**Full walkthrough** (light curves visualization and analysis): [![🎥 Watch The Astronomists Demo](https://img.youtube.com/vi/imL7TtxZxIg/maxresdefault.jpg)](https://www.youtube.com/watch?v=imL7TtxZxIg)
+You can watch the full walkthrough on YouTube:
+
+[![Watch Live Demo](https://img.youtube.com/vi/imL7TtxZxIg/0.jpg)](https://www.youtube.com/watch?v=imL7TtxZxIg)
+
+*(Click the image to open the live demo video on YouTube)*
+
+## 📸 Website Preview
+
+| Page Name | Preview | Description |
+|-----------|---------|-------------|
+| **Home Page** | ![Home Page](./public/home.png) | Immersive space-themed interface with starfield animation |
+| **Exploration Path** | ![Exploration Path](./public/path.png) | Central hub for selecting AI agents (Kepler, Grace Hopper, Mission Dashboard) |
+| **Grace Hopper Input** | ![Grace Hopper Input](./public/hopper_1.png) | Interactive analysis interface for candidate exoplanets with ML predictions |
+| **Grace Hopper Light Curves** | ![Grace Hopper Light Curves](./public/hopper_light_curves.png) | Transit data analysis with AstronetCNN deep learning model |
+| **Grace Hopper Report** | ![Grace Hopper Report](./public/hopper_repport.png) | AI-powered synthesis and contextualized exoplanet analysis |
+| **Kepler Input** | ![Kepler Input](./public/kepler_1.png) | Search interface for confirmed exoplanets with intelligent search engine |
+| **Kepler Planet Results** | ![Kepler Planet Results](./public/kepler_2.png) | Exoplanet analysis dashboard with NASA Eyes visualizations |
+| **Kepler System Viewer** | ![Kepler System Viewer](./public/kepler_4.png) | Stellar system viewer with dual NASA Eyes perspectives |
+| **Kepler Bibliographic Research** | ![Kepler Bibliographic Research](./public/kepler_biblio-bis.png) | AI agent for scientific literature analysis via arXiv and publications |
+| **Mission Dashboard** | ![Mission Dashboard](./public/mission_dashboard.png) | Mission control center for NASA's space observatories |
+| **Mission JWST** | ![Mission JWST](./public/mission_jwst.png) | James Webb Space Telescope mission visualization |
 
 
 ## 🌟 Features
