@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import StarfieldHyperdrive from "../components/StarfieldHyperdrive";
 import NavigationBar from "../components/NavigationMenu";
 import JupyterLiteNotebook from "../components/JupyterLiteNotebook";
+import LightCurveSimulator, { LightCurveData } from "../components/LightCurveSimulator";
+import LightCurveVisualizer from "../components/LightCurveVisualizer";
 
 export default function GraceHopperInputPage() {
   const router = useRouter();
@@ -27,6 +29,7 @@ export default function GraceHopperInputPage() {
   const [showLightCurves, setShowLightCurves] = useState(false);
   const [mlPrediction, setMlPrediction] = useState<any>(null);
   const [loadingMlPrediction, setLoadingMlPrediction] = useState(false);
+  const [simulatedLightCurveData, setSimulatedLightCurveData] = useState<LightCurveData | null>(null);
   const [manualResults, setManualResults] = useState({
     pred_label: "",
     confidence: "",
@@ -76,6 +79,10 @@ export default function GraceHopperInputPage() {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleLightCurveDataGenerated = (data: LightCurveData) => {
+    setSimulatedLightCurveData(data);
   };
 
 
@@ -829,40 +836,20 @@ export default function GraceHopperInputPage() {
                       </div>
                     </div>
 
-                    {/* Light Curve Visualization Button */}
+                    {/* Light Curve Simulation */}
                     <div style={{ marginTop: 16 }}>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          // Placeholder for future functionality
-                          alert('🚧 Light Curve Visualization feature coming soon!\n\n• Advanced Three.js 3D visualizations\n• Interactive data analysis\n• Real-time ML model integration');
-                        }}
-                        style={{
-                          padding: "12px 24px",
-                          borderRadius: 12,
-                          border: "1px solid rgba(59,130,246,0.25)",
-                          background: "rgba(59,130,246,0.3)",
-                          color: "#e6f0ff",
-                          fontWeight: 700,
-                          fontSize: 14,
-                          cursor: "pointer",
-                          backdropFilter: "blur(8px)",
-                          WebkitBackdropFilter: "blur(8px)",
-                          boxShadow: "0 12px 40px rgba(59,130,246,0.25)",
-                          transition: "transform 0.15s ease, box-shadow 0.2s ease",
-                          marginBottom: 12
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.transform = "translateY(-2px)";
-                          e.currentTarget.style.boxShadow = "0 18px 60px rgba(59,130,246,0.35)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.transform = "translateY(0)";
-                          e.currentTarget.style.boxShadow = "0 12px 40px rgba(59,130,246,0.25)";
-                        }}
-                      >
-                        📈 Generate Light Curve Visualization
-                      </button>
+                      <LightCurveSimulator 
+                        onDataGenerated={handleLightCurveDataGenerated}
+                        formData={formData}
+                      />
+                    </div>
+
+                    {/* Light Curve Visualization */}
+                    <div style={{ marginTop: 16 }}>
+                      <LightCurveVisualizer 
+                        lightCurveData={simulatedLightCurveData}
+                        height={400}
+                      />
                     </div>
 
                     {/* Python Notebook Section */}

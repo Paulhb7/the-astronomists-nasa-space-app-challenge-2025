@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@jupyterlite/iframe-extension": "^0.6.4",
+    "chart.js": "^4.5.0",
+    "lucide-react": "^0.544.0",
     "next": "15.4.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-dropzone": "^14.3.8",
     "react-markdown": "^10.1.0"
   },
   "devDependencies": {
