@@ -1,10 +1,12 @@
 # 🧠 The Astronomists
 
-<div align="center">
+> *"The most dangerous phrase in the language is: 'We've always done it this way.'"* - Grace Hopper, PhD
+
+> <div align="center">
   <img src="./public/the_astronomists.png" alt="The Astronomists" width="300" />
 </div>
 
-> *"The most dangerous phrase in the language is: 'We've always done it this way.'"* - Grace Hopper, PhD
+---
 
 🌍 NASA missions such as Kepler, K2, and TESS have produced massive datasets of stellar observations, yet exoplanet identification remains slow and mostly manual. The main challenge lies in the inconsistencies between missions — varying data formats, feature sets, and noise levels make it difficult to train a single model that performs well across all sources. 
 
