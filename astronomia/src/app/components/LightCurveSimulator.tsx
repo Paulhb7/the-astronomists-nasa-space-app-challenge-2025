@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 export interface LightCurveData {
   time: number[];
@@ -38,6 +38,24 @@ const LightCurveSimulator: React.FC<LightCurveSimulatorProps> = ({
     transitCount: 3,
     starName: formData?.hostName || 'Simulated Star'
   });
+
+  // Update simulation parameters when formData changes
+  useEffect(() => {
+    setSimulationParams(prev => ({
+      ...prev,
+      period: formData?.period ? parseFloat(formData.period) : prev.period,
+      duration: formData?.duration ? parseFloat(formData.duration) : prev.duration,
+      depth: formData?.depth ? parseFloat(formData.depth) : prev.depth,
+      starName: formData?.hostName || prev.starName
+    }));
+  }, [formData?.period, formData?.duration, formData?.depth, formData?.hostName]);
+
+  // Add random variation to simulation parameters
+  const addRandomVariation = (value: number, variationPercent: number = 5) => {
+    const variation = value * (variationPercent / 100);
+    const randomFactor = (Math.random() - 0.5) * 2; // -1 to 1
+    return Math.max(0.1, value + (variation * randomFactor));
+  };
 
   const generateTransitLightCurve = useCallback((
     time: number[],
@@ -109,8 +127,15 @@ const LightCurveSimulator: React.FC<LightCurveSimulatorProps> = ({
       
       const { period, duration, depth, noiseLevel, transitCount, starName } = simulationParams;
       
+      // Add random variations to parameters for more realistic simulation
+      const variedPeriod = addRandomVariation(period, 3); // ±3% variation
+      const variedDuration = addRandomVariation(duration, 5); // ±5% variation  
+      const variedDepth = addRandomVariation(depth, 8); // ±8% variation
+      const variedNoiseLevel = addRandomVariation(noiseLevel, 20); // ±20% variation
+      const variedTransitCount = Math.max(1, Math.round(transitCount + (Math.random() - 0.5) * 2)); // ±1 transit
+      
       // Generate time array
-      const totalDuration = period * transitCount;
+      const totalDuration = variedPeriod * variedTransitCount;
       const timeStep = 0.01; // 0.01 days = ~14 minutes
       const time: number[] = [];
       
@@ -118,9 +143,9 @@ const LightCurveSimulator: React.FC<LightCurveSimulatorProps> = ({
         time.push(t);
       }
       
-      // Generate light curve
+      // Generate light curve with varied parameters
       const { flux, fluxError } = generateTransitLightCurve(
-        time, period, duration, depth, noiseLevel
+        time, variedPeriod, variedDuration, variedDepth, variedNoiseLevel
       );
       
       const lightCurveData: LightCurveData = {
@@ -128,11 +153,11 @@ const LightCurveSimulator: React.FC<LightCurveSimulatorProps> = ({
         flux,
         fluxError,
         metadata: {
-          period,
-          duration,
-          depth,
-          noiseLevel,
-          transitCount,
+          period: variedPeriod,
+          duration: variedDuration,
+          depth: variedDepth,
+          noiseLevel: variedNoiseLevel,
+          transitCount: variedTransitCount,
           starName
         }
       };

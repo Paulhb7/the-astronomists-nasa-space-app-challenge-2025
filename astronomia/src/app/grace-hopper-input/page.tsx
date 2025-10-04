@@ -6,6 +6,7 @@ import NavigationBar from "../components/NavigationMenu";
 import JupyterLiteNotebook from "../components/JupyterLiteNotebook";
 import LightCurveSimulator, { LightCurveData } from "../components/LightCurveSimulator";
 import LightCurveVisualizer from "../components/LightCurveVisualizer";
+import LightCurveUpload from "../components/LightCurveUpload";
 
 export default function GraceHopperInputPage() {
   const router = useRouter();
@@ -30,6 +31,7 @@ export default function GraceHopperInputPage() {
   const [mlPrediction, setMlPrediction] = useState<any>(null);
   const [loadingMlPrediction, setLoadingMlPrediction] = useState(false);
   const [simulatedLightCurveData, setSimulatedLightCurveData] = useState<LightCurveData | null>(null);
+  const [uploadedLightCurveData, setUploadedLightCurveData] = useState<LightCurveData | null>(null);
   const [manualResults, setManualResults] = useState({
     pred_label: "",
     confidence: "",
@@ -83,6 +85,36 @@ export default function GraceHopperInputPage() {
 
   const handleLightCurveDataGenerated = (data: LightCurveData) => {
     setSimulatedLightCurveData(data);
+  };
+
+  const handleUploadAnalysisComplete = (results: any) => {
+    // Convert upload analysis results to LightCurveData format
+    if (results.transit_candidates && results.transit_candidates.length > 0) {
+      const candidate = results.transit_candidates[0];
+      
+      // Update form data with calculated values
+      setFormData(prev => ({
+        ...prev,
+        period: candidate.period.toString(),
+        duration: candidate.duration.toString(),
+        depth: (candidate.depth * 10000).toString() // Convert back to ppm
+      }));
+      
+      const uploadedData: LightCurveData = {
+        time: [], // We don't have the actual time series from upload
+        flux: [], // We don't have the actual flux series from upload
+        fluxError: [],
+        metadata: {
+          period: candidate.period,
+          duration: candidate.duration,
+          depth: candidate.depth * 10000, // Convert back to ppm
+          noiseLevel: results.quality_metrics.snr ? 1 / results.quality_metrics.snr : 0.01,
+          transitCount: results.quality_metrics.transit_count || 0,
+          starName: 'Uploaded Data'
+        }
+      };
+      setUploadedLightCurveData(uploadedData);
+    }
   };
 
 
@@ -688,65 +720,12 @@ export default function GraceHopperInputPage() {
                     gap: 12 
                   }}>
                     {/* Transit Data Upload */}
-                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                      <input
-                        type="file"
-                        accept=".csv,.txt,.dat,.fits"
-                        onChange={(e) => handleFileChange(e, 'transit')}
-                        style={{ display: "none" }}
-                        id="transit-upload"
-                      />
-                      <label
-                        htmlFor="transit-upload"
-                        style={{
-                          flex: 1,
-                          padding: "12px 16px",
-                          borderRadius: 8,
-                          border: "1px solid rgba(188,210,255,0.15)",
-                          background: "rgba(6,12,26,0.4)",
-                          color: "#9bb8ff",
-                          fontSize: 14,
-                          cursor: "pointer",
-                          transition: "all 0.2s ease",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          opacity: 1
-                        }}
-                      >
-                        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                          <span style={{ fontSize: 20 }}>📊</span>
-                          <div>
-                            <div style={{ fontWeight: 600 }}>Transit Light Curves</div>
-                            <div style={{ fontSize: 12, color: "#6b7280", opacity: 0.8 }}>
-                              Upload .csv, .txt, .dat, or .fits files
-                            </div>
-                          </div>
-                        </div>
-                        <span style={{ 
-                          color: "#10b981", 
-                          fontSize: 12,
-                          padding: "4px 8px",
-                          background: "rgba(16,185,129,0.2)",
-                          borderRadius: 4
-                        }}>
-                          Available
-                        </span>
-                      </label>
-                      {transitData && (
-                        <div style={{ 
-                          color: "#4ade80", 
-                          fontSize: 12, 
-                          minWidth: "120px",
-                          padding: "8px 12px",
-                          background: "rgba(74,222,128,0.2)",
-                          borderRadius: 6,
-                          border: "1px solid rgba(74,222,128,0.3)"
-                        }}>
-                          ✓ {transitData.name.length > 15 ? transitData.name.substring(0, 15) + "..." : transitData.name}
-                        </div>
-                      )}
-                    </div>
+                    <LightCurveUpload 
+                      onFileUpload={(file, options) => {
+                        setTransitData(file);
+                      }}
+                      onAnalysisComplete={handleUploadAnalysisComplete}
+                    />
 
                     {/* JWST Image Upload */}
                     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -847,7 +826,7 @@ export default function GraceHopperInputPage() {
                     {/* Light Curve Visualization */}
                     <div style={{ marginTop: 16 }}>
                       <LightCurveVisualizer 
-                        lightCurveData={simulatedLightCurveData}
+                        lightCurveData={uploadedLightCurveData || simulatedLightCurveData}
                         height={400}
                       />
                     </div>
