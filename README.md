@@ -2,7 +2,7 @@
 
 > *"The most dangerous phrase in the language is: 'We've always done it this way.'"* - Grace Hopper, PhD
 
-> <div align="center">
+<div align="center">
   <img src="./public/the_astronomists.png" alt="The Astronomists" width="300" />
 </div>
 
