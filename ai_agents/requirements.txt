@@ -1,0 +1,13 @@
+openai-agents
+requests
+python-dotenv
+pydantic
+orjson
+fastapi
+uvicorn
+httpx
+astroquery
+pandas
+scikit-learn
+annotated-types
+anyio
