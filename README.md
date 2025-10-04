@@ -6,7 +6,8 @@ A full-stack web application that unites machine learning, agentic reasoning, an
 
 ## 🎥 Demo
 
-**Full walkthrough** (light curves visualization and analysis): [https://www.youtube.com/watch?v=imL7TtxZxIg](https://www.youtube.com/watch?v=imL7TtxZxIg)
+**Full walkthrough** (light curves visualization and analysis): [![🎥 Watch The Astronomists Demo](https://img.youtube.com/vi/imL7TtxZxIg/maxresdefault.jpg)](https://www.youtube.com/watch?v=imL7TtxZxIg)
+
 
 ## 🌟 Features
 
