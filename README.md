@@ -148,14 +148,6 @@ This project represents a first draft, designed to make the discovery and study 
 
 *Next: James Webb integration (if we're lucky to win! 😄)*
 
-## 🤝 Contributing
-
-We welcome contributions from the scientific community! Please feel free to:
-- Report bugs and issues
-- Suggest new features
-- Contribute to the ML models
-- Improve the documentation
-
 ## 📄 License
 
 This project is developed for the NASA Space Apps Challenge and is open source.
