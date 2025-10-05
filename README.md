@@ -134,6 +134,9 @@ Two distinct agents powered by the **OpenAI Agents framework**:
 4. **Access the application**
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:8000
+   - 
+
+- Built on Windows, running on MacOS and Linux with minor changes
 
 ## 📊 Performance Metrics
 
