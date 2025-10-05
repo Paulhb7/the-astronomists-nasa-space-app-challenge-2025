@@ -112,7 +112,7 @@ Two distinct agents powered by the **OpenAI Agents framework**:
 1. **Clone the repository**
    ```bash
    git clone https://github.com/Paulhb7/the-astronomists-nasa-space-app-challenge-2025.git
-   cd astronomist
+   cd the-astronomists-nasa-space-app-challenge-2025
    ```
 
 2. **Backend Setup**
