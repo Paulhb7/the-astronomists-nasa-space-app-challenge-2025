@@ -111,7 +111,7 @@ Two distinct agents powered by the **OpenAI Agents framework**:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/astronomist.git
+   git clone https://github.com/Paulhb7/the-astronomists-nasa-space-app-challenge-2025.git
    cd astronomist
    ```
 
@@ -126,7 +126,7 @@ Two distinct agents powered by the **OpenAI Agents framework**:
 
 3. **Frontend Setup**
    ```bash
-   cd the-astronomist
+   cd astronomia
    npm install
    npm run dev
    ```
