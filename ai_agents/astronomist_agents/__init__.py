@@ -5,7 +5,6 @@
 # - Grace Hopper Agent: Advanced research with ML classification capabilities
 
 from .grace_hopper_agent import (
-    create_grace_hopper_agent,
     analyze_exoplanet_with_grace_hopper,
     ExoplanetCharacteristics,
     MLPrediction
