@@ -1,86 +1,23 @@
 # -*- coding: utf-8 -*-
 import os
-import requests
 import asyncio
 import json
-from typing import Optional, Any
-from dotenv import load_dotenv
+from typing import Optional
+
 from pydantic import BaseModel
 
-# Agent framework imports
-from agents import (
-    Agent,
-    OpenAIChatCompletionsModel,
-    Runner,
-    function_tool,
-    set_tracing_disabled,
+from celeste import Capability, Provider, create_client
+
+# Celeste model id (registered in celeste-python)
+MODEL_ID = os.getenv("GRACE_HOPPER_MODEL_ID", "gpt-4o")
+
+CLIENT = create_client(
+    capability=Capability.TEXT_GENERATION,
+    provider=Provider.OPENAI,
+    model=MODEL_ID,
 )
 
-# ----------------------------
-# Chargement des variables d'environnement
-# ----------------------------
-load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-PERPLEXITY_API_KEY = os.getenv("PERPLEXITY_API_KEY")
-
-if not OPENAI_API_KEY:
-    raise ValueError("OPENAI_API_KEY is not set. Please ensure it is defined in your .env file.")
-
-if not PERPLEXITY_API_KEY:
-    raise ValueError("PERPLEXITY_API_KEY n'est pas défini. Ajoute-le à ton fichier .env")
-
-model = "gpt-5-mini-2025-08-07"
-
-# ----------------------------
-# Grace Hopper Data Models
-# ----------------------------
-
-class MLPrediction(BaseModel):
-    """Machine Learning prediction results"""
-    pred_label: str
-    p_CONFIRMED: float
-    p_CANDIDATE: float
-    p_FALSE_POSITIVE: float
-
-class ExoplanetCharacteristics(BaseModel):
-    # Original fields from frontend form - NO NAMES TO PREVENT EXTERNAL LOOKUPS
-    mission: Optional[str] = None
-    period: Optional[float] = None  # days
-    duration: Optional[float] = None  # hours
-    depth: Optional[float] = None  # ppm
-    st_teff: Optional[float] = None  # Kelvin
-    st_logg: Optional[float] = None  # dex
-    st_rad: Optional[float] = None  # solar radii
-    mag: Optional[float] = None
-    
-    # Grace Hopper fields - ONLY PHYSICAL CHARACTERISTICS, NO NAMES
-    distance: Optional[float] = None  # parsecs
-    stellar_type: Optional[str] = None
-    orbital_period: Optional[float] = None  # days
-    semi_major_axis: Optional[float] = None  # AU
-    planet_radius: Optional[float] = None  # Earth radii
-    planet_mass: Optional[float] = None  # Earth masses
-    equilibrium_temp: Optional[float] = None  # Kelvin
-    discovery_method: Optional[str] = None
-    discovery_year: Optional[int] = None
-    
-    # ML Prediction results (optional)
-    ml_prediction: Optional[MLPrediction] = None
-
-# ----------------------------
-# Grace Hopper Tools - Not used for now
-# ----------------------------
-
-
-# ----------------------------
-# Grace Hopper Agent Creation
-# ----------------------------
-
-def create_grace_hopper_agent() -> Agent:
-    """Creates the Grace Hopper exoplanet analysis agent"""
-    return Agent(
-        name="Grace Hopper Exoplanet Analysis Agent",
-        instructions="""
+GRACE_HOPPER_INSTRUCTIONS = """
         You are **Grace Hopper Exoplanet Analysis Agent**, an AI exoplanet analysis specialist. Your mission: analyze observational data characteristics to assess their physical plausibility, then compare with ML classifier results for consistency evaluation.
 
         **OBJECTIVE**: 
@@ -134,10 +71,43 @@ def create_grace_hopper_agent() -> Agent:
 
         **ANALYSIS PRIORITY**: Always start with physical observational analysis first, then evaluate ML consistency. Data drives the assessment, not ML prediction.
 
-        """,
-        model=model,
-        tools=[],  # No tools to prevent external lookups
-    )
+        """
+
+# ----------------------------
+# Grace Hopper Data Models
+# ----------------------------
+
+class MLPrediction(BaseModel):
+    """Machine Learning prediction results"""
+    pred_label: str
+    p_CONFIRMED: float
+    p_CANDIDATE: float
+    p_FALSE_POSITIVE: float
+
+class ExoplanetCharacteristics(BaseModel):
+    # Original fields from frontend form - NO NAMES TO PREVENT EXTERNAL LOOKUPS
+    mission: Optional[str] = None
+    period: Optional[float] = None  # days
+    duration: Optional[float] = None  # hours
+    depth: Optional[float] = None  # ppm
+    st_teff: Optional[float] = None  # Kelvin
+    st_logg: Optional[float] = None  # dex
+    st_rad: Optional[float] = None  # solar radii
+    mag: Optional[float] = None
+    
+    # Grace Hopper fields - ONLY PHYSICAL CHARACTERISTICS, NO NAMES
+    distance: Optional[float] = None  # parsecs
+    stellar_type: Optional[str] = None
+    orbital_period: Optional[float] = None  # days
+    semi_major_axis: Optional[float] = None  # AU
+    planet_radius: Optional[float] = None  # Earth radii
+    planet_mass: Optional[float] = None  # Earth masses
+    equilibrium_temp: Optional[float] = None  # Kelvin
+    discovery_method: Optional[str] = None
+    discovery_year: Optional[int] = None
+    
+    # ML Prediction results (optional)
+    ml_prediction: Optional[MLPrediction] = None
 
 # ----------------------------
 # API Integration Functions
@@ -148,10 +118,6 @@ async def analyze_exoplanet_with_grace_hopper(characteristics: ExoplanetCharacte
     Analyze an exoplanet using the Grace Hopper AI agent
     """
     try:
-        # Create the agent
-        agent = create_grace_hopper_agent()
-        chat_history = []
-        
         # Prepare the analysis query
         char_dict = characteristics.dict(exclude_none=True)
         
@@ -242,32 +208,16 @@ async def analyze_exoplanet_with_grace_hopper(characteristics: ExoplanetCharacte
 
 🎯 TASK: Analyze these observational characteristics for physical plausibility and exoplanet indicators."""
         
-        # Add the query to history
-        chat_history.append({"role": "user", "content": analysis_query})
-        
-        # Run the agent
-        result = Runner.run_streamed(agent, chat_history)
-        response_content = ""
-        tools_used = []
-        
-        async for event in result.stream_events():
-            if event.type == "raw_response_event":
-                data_type = getattr(event.data, "type", None)
-                if hasattr(event.data, "delta"):
-                    if data_type == "response.output_text.delta":
-                        response_content += event.data.delta
-                        
-            elif event.type == "run_item_stream_event":
-                item = event.item
-                if item.type == "tool_call_item":
-                    tool_name = getattr(item.raw_item, "name", "Tool")
-                    if tool_name not in tools_used:
-                        tools_used.append(tool_name)
+        # Build a single prompt (Celeste text generation input is a string prompt)
+        prompt = f"{GRACE_HOPPER_INSTRUCTIONS}\n\n{analysis_query}"
+
+        output = await CLIENT.generate(prompt=prompt)
+        response_content = output.content if isinstance(output.content, str) else str(output.content)
         
         return {
             "success": True,
             "result": response_content,
-            "tools_used": tools_used
+            "tools_used": []
         }
         
     except Exception as e:
@@ -278,8 +228,6 @@ async def analyze_exoplanet_with_grace_hopper(characteristics: ExoplanetCharacte
 
 if __name__ == "__main__":
     # Test the agent
-    import asyncio
-    
     test_characteristics = ExoplanetCharacteristics(
         mission="KEPLER",
         distance=430.0,
